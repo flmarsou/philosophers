@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/10 15:45:29 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:42:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 //===============================//
 
 unsigned int	ft_atou(const char *str);
-unsigned long	ft_atolu(const char *str);
+unsigned long	ft_atoul(const char *str);
 
 //===============================//
 //             Parser            //

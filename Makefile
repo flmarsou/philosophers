@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 13:40:08 by flmarsou          #+#    #+#              #
-#    Updated: 2024/09/10 15:44:47 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/09/16 15:43:03 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ EXE			=	philo
 SRC			=	./src/main.c \
 
 SRC_UTILS	=	./src/utils/ft_atou.c \
-				./src/utils/ft_atolu.c \
+				./src/utils/ft_atoul.c \
 
 SRC_PARSER	=	./src/parser/parser.c \
 
