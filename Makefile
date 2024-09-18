@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 13:40:08 by flmarsou          #+#    #+#              #
-#    Updated: 2024/09/17 15:31:24 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/09/18 13:53:19 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRC			=	./src/main.c \
 				./src/parser.c \
 
 SRC_UTILS	=	./src/utils/ft_atou.c \
-				./src/utils/ft_atoul.c \
 
 
 SOURCES		=	${SRC} ${SRC_UTILS}
