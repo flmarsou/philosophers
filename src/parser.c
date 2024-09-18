@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:29:40 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/17 15:31:52 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:49:02 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	check_argv(const char **argv)
 {
 	unsigned int	i;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		if (!isnumber(argv[i]))
@@ -39,6 +39,11 @@ t_bool	check_argv(const char **argv)
 			return (false);
 		}
 		i++;
+	}
+	if (argv[5] && (argv[5][0] == '0' || !argv[5][0]))
+	{
+		printf("\e[1;31m[x] - Error: \e[1;97mCycles can't be zero!\n\e[0m");
+		return (false);
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/17 15:30:38 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:26:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ typedef enum e_bool
 
 struct s_stats
 {
-	unsigned int	nbr_of_philos;
-	unsigned long	time_to_die;
-	unsigned long	time_to_eat;
-	unsigned long	time_to_sleep;
+	unsigned int	nbr_of_philos;		// Number of Philosophers
+	unsigned int	time_to_die;		// Time to die in miliseconds
+	unsigned int	time_to_eat;		// Time to eat in miliseconds
+	unsigned int	time_to_sleep;		// Time to sleep in miliseconds
+	unsigned int	cycles;				// Number of cycles
 };
 
 typedef struct s_philo
@@ -47,7 +48,6 @@ typedef struct s_philo
 //===============================//
 
 unsigned int	ft_atou(const char *str);
-unsigned long	ft_atoul(const char *str);
 
 //===============================//
 //             Parser            //
