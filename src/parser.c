@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:29:40 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/18 14:49:02 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:27:37 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_bool	isnumber(const char *str)
 	return (true);
 }
 
-t_bool	check_argv(const char **argv)
+static t_bool	check_argv(const char **argv)
 {
 	unsigned int	i;
 
@@ -48,7 +48,7 @@ t_bool	check_argv(const char **argv)
 	return (true);
 }
 
-t_bool	check_argc(int argc)
+static t_bool	check_argc(int argc)
 {
 	if (argc != 5 && argc != 6)
 	{
@@ -63,6 +63,18 @@ t_bool	check_argc(int argc)
 			printf("Missing time to sleep!\n");
 		if (argc >= 7)
 			printf("Too many arguments!\n");
+		return (false);
+	}
+	return (true);
+}
+
+t_bool	parser(int argc, const char **argv)
+{
+	if (!check_argv(argv) || !check_argc(argc))
+	{
+		printf("\e[1;35m[!] - Usage: \e[1;97m");
+		printf("<nbr_of_philo> <time_to_die> <time_to_eat> ");
+		printf("<time_to_sleep> <nbr_of_cycles>\n\e[0m");
 		return (false);
 	}
 	return (true);
