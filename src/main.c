@@ -6,37 +6,57 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/18 14:49:07 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:07:18 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	init_stats(t_philo *philo, int argc, const char **argv)
+void	*philosopher_routine(void *arg)
 {
-	philo->stats.nbr_of_philos = ft_atou(argv[1]);
-	philo->stats.time_to_die = ft_atou(argv[2]);
-	philo->stats.time_to_eat = ft_atou(argv[3]);
-	philo->stats.time_to_sleep = ft_atou(argv[4]);
-	if (argc == 6)
-		philo->stats.cycles = ft_atou(argv[5]);
+	struct s_philos		*philo = (struct s_philos *)arg;
+	
+	printf("Philo %u exists!\n", philo->id);
+	fflush(stdout);
+	return (0);
+}
+
+void	init_philos(t_sim *sim)
+{
+	unsigned int	i;
+
+	i = 0;
+	sim->philos = malloc(sizeof(struct s_philos) * sim->stats.nbr_of_philos);
+	if (!sim->philos)
+		exit(1);
+	while (i < sim->stats.nbr_of_philos)
+	{
+		sim->philos[i].id = i;
+		pthread_create(&sim->philos[i].thread, NULL, philosopher_routine, &sim->philos[i]);
+		i++;
+	}
+}
+
+void	init_stats(t_sim *sim, const char **argv)
+{
+	sim->stats.nbr_of_philos = ft_atou(argv[1]);
+	sim->stats.time_to_die = ft_atou(argv[2]);
+	sim->stats.time_to_eat = ft_atou(argv[3]);
+	sim->stats.time_to_sleep = ft_atou(argv[4]);
+	if (argv[5])
+		sim->stats.cycles = ft_atou(argv[5]);
 	else
-		philo->stats.cycles = 0;
+		sim->stats.cycles = 0;
+	sim->stats.timestamp = gettime();
 }
 
 int	main(int argc, const char **argv)
 {
-	t_philo	*philo;
+	t_sim	sim;
 
-	if (!check_argv(argv) || !check_argc(argc))
-	{
-		printf("\e[1;35m[!] - Usage: \e[1;97m");
-		printf("<nbr_of_philo> <time_to_die> <time_to_eat> ");
-		printf("<time_to_sleep> <nbr_of_cycles>\n\e[0m");
-		exit(1);
-	}
-	philo = (t_philo *)malloc(sizeof(t_philo));
-	init_stats(philo, argc, argv);
-	free(philo);
+	if (!parser(argc, argv))
+		return (1);
+	init_stats(&sim, argv);
+	init_philos(&sim);
 	return (0);
 }
