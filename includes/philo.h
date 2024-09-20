@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/18 14:26:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:01:29 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,48 @@ typedef enum e_bool
 	true = 1
 }	t_bool;
 
+// Philosophers' Stats
 struct s_stats
 {
-	unsigned int	nbr_of_philos;		// Number of Philosophers
-	unsigned int	time_to_die;		// Time to die in miliseconds
-	unsigned int	time_to_eat;		// Time to eat in miliseconds
-	unsigned int	time_to_sleep;		// Time to sleep in miliseconds
-	unsigned int	cycles;				// Number of cycles
+	unsigned int	nbr_of_philos;	// Number of Philosophers
+	unsigned int	time_to_die;	// Time to die in miliseconds
+	unsigned int	time_to_eat;	// Time to eat in miliseconds
+	unsigned int	time_to_sleep;	// Time to sleep in miliseconds
+	unsigned int	cycles;			// Number of cycles
+	unsigned long	timestamp;
 };
 
-typedef struct s_philo
+// Philosophers' Info (Individual Allocation)
+struct s_philos
+{
+	pthread_t		thread;			// Philosophers' Threads
+	unsigned int	id;				// Philosophers' IDs	
+	struct s_stats	*stats;
+};
+
+// Main Struct
+typedef struct s_sim
 {
 	struct s_stats	stats;
-}	t_philo;
-
-//===============================//
-//             Utils             //
-//===============================//
+	struct s_philos	*philos;			// Array of Philosophers
+}	t_sim;
 
 unsigned int	ft_atou(const char *str);
+unsigned long	gettime(void);
 
-//===============================//
-//             Parser            //
-//===============================//
-
-t_bool			check_argc(int argc);
-t_bool			check_argv(const char **argv);
+t_bool			parser(int argc, const char **argv);
 
 #endif
+
+// void	print_header(void)
+// {
+// 	printf("╔══════════╦═══════════╦══════════════════╗\n");
+// 	printf("║ Time     ║ Philo     ║ Event            ║\n");
+// 	printf("╠══════════╬═══════════╬══════════════════╣\n");
+// 	printf("║ _______0 ║           ║ has taken a fork ║\n");
+// 	printf("║ _____200 ║           ║ is eating        ║\n");
+// 	printf("║ _____300 ║           ║ is sleeping      ║\n");
+// 	printf("║ ____1000 ║           ║ is thinking      ║\n");
+// 	printf("║ ____1200 ║           ║ died             ║\n");
+// 	printf("╚══════════╩═══════════╩══════════════════╝\n");
+// }
