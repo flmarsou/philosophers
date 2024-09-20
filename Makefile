@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 13:40:08 by flmarsou          #+#    #+#              #
-#    Updated: 2024/09/18 13:53:19 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/09/20 12:16:43 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC			=	./src/main.c \
 				./src/parser.c \
 
 SRC_UTILS	=	./src/utils/ft_atou.c \
+				./src/utils/ft_time.c \
 
 
 SOURCES		=	${SRC} ${SRC_UTILS}
@@ -25,7 +26,7 @@ OBJECTS		=	${SOURCES:%.c=obj/%.o}
 
 # Variables
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address,leak -g
 RM			=	rm -rf
 
 # Makefile
