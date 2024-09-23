@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:10:10 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/20 11:10:31 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:05:13 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // current_seconds:		Converts seconds to miliseconds.
 // current_miliseconds:	Converts microseconds to miliseconds.
-unsigned long	gettime(void)
+unsigned long	ft_gettime(void)
 {
 	struct timeval	timestamp;
 	unsigned long	current_seconds;
