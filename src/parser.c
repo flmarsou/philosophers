@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:29:40 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/20 09:27:37 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:24:43 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_bool	check_argv(const char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		if (!isnumber(argv[i]))
+		if (!isnumber(argv[i]) || argv[i][0] == '0')
 		{
 			printf("\e[1;31m[x] - Error: \e[1;97mIncorect Arguments!\n\e[0m");
 			return (false);
