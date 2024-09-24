@@ -12,7 +12,8 @@
 
 #include "../includes/philo.h"
 
-// Initializes the philosophers' threads and destroys them afterward.
+// Creates a thread for each philosopher to run the routine function.
+// Waits for each philosopher thread to finish execution.
 static void	init_threads(t_sim *sim)
 {
 	unsigned int	i;
@@ -31,7 +32,9 @@ static void	init_threads(t_sim *sim)
 	}
 }
 
-// Initializes the philosophers' fork and links the address of their neighbor's.
+// Allocates the different iterations of philosophers.
+// Initializes each philosopher's fork and links it to their neighbor's.
+// (The last philosopher's neighboring fork is that of the first one!)
 static void	init_mutexes(t_sim *sim)
 {
 	unsigned int	i;
@@ -50,6 +53,7 @@ static void	init_mutexes(t_sim *sim)
 	}
 }
 
+// Initializes the statistics struct based on the given arguments.
 static void	init_stats(t_sim *sim, const char **argv)
 {
 	sim->stats.nbr_of_philos = ft_atou(argv[1]);
