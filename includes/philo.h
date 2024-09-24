@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/23 15:06:43 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:47:35 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ struct s_stats
 // Philosophers' Info (Individual Allocation)
 struct s_philos
 {
-	pthread_t		thread;			// Philosophers' Threads
-	pthread_mutex_t	fork;			// Philosophers' Forks
-	unsigned int	id;				// Philosophers' IDs
-	struct s_stats	*stats;
+	pthread_t		thread;			// Philosophers' Thread
+	unsigned int	id;				// Philosophers' ID
+	pthread_mutex_t	left_fork;		// Philosophers' Fork
+	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
 };
 
 // Main Struct
@@ -61,7 +61,7 @@ unsigned long	ft_gettime(void);
 
 t_bool			parser(int argc, const char **argv);
 
-void			*philosopher_routine(void *arg);
+void			*routine(void *philo);
 
 #endif
 
