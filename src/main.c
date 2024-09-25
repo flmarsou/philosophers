@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/24 15:47:25 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:53:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_threads(t_sim *sim)
 		pthread_create(&sim->philos[i].thread, NULL, &routine, &sim->philos[i]);
 		i++;
 	}
+	sim->stats.key = 1;
 	i = 0;
 	while (i < sim->stats.nbr_of_philos)
 	{
@@ -40,10 +41,11 @@ static void	init_mutexes(t_sim *sim)
 	unsigned int	i;
 
 	i = 0;
-	sim->philos = malloc(sizeof(struct s_philos) * sim->stats.nbr_of_philos);
+	sim->philos = malloc(sizeof(t_philos) * sim->stats.nbr_of_philos);
 	while (i < sim->stats.nbr_of_philos)
 	{
-		sim->philos[i].id = i;
+		sim->philos[i].id = i + 1;
+		sim->philos[i].stats = &sim->stats;
 		pthread_mutex_init(&sim->philos[i].left_fork, NULL);
 		if (i == sim->stats.nbr_of_philos - 1)
 			sim->philos[i].right_fork = &sim->philos[0].left_fork;
@@ -64,6 +66,7 @@ static void	init_stats(t_sim *sim, const char **argv)
 		sim->stats.cycles = ft_atou(argv[5]);
 	else
 		sim->stats.cycles = 0;
+	sim->stats.key = 0;
 	sim->stats.timestamp = ft_gettime();
 }
 
