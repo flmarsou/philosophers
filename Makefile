@@ -6,7 +6,7 @@
 #    By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 13:40:08 by flmarsou          #+#    #+#              #
-#    Updated: 2024/09/24 15:44:25 by flmarsou         ###   ########.fr        #
+#    Updated: 2024/09/25 14:43:27 by flmarsou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC			=	./src/main.c \
 
 SRC_UTILS	=	./src/utils/ft_atou.c \
 				./src/utils/ft_gettime.c \
+				./src/utils/ft_msleep.c \
 
 SRC_THREADS	=	./src/routines/routine.c \
 
