@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/24 15:47:35 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:56:41 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,20 @@ struct s_stats
 	unsigned int	time_to_eat;	// Time to eat in miliseconds
 	unsigned int	time_to_sleep;	// Time to sleep in miliseconds
 	unsigned int	cycles;			// Number of cycles
-	unsigned long	timestamp;
+	unsigned int	key;			// Switch to wait for all threads to init
+	unsigned long	timestamp;		// Current time in milisecond
 };
 
 // Philosophers' Info (Individual Allocation)
-struct s_philos
+typedef struct s_philos
 {
 	pthread_t		thread;			// Philosophers' Thread
 	unsigned int	id;				// Philosophers' ID
 	pthread_mutex_t	left_fork;		// Philosophers' Fork
 	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
-};
+	unsigned int	ate;
+	struct s_stats	*stats;
+}	t_philos;
 
 // Main Struct
 typedef struct s_sim
@@ -58,6 +61,7 @@ typedef struct s_sim
 
 unsigned int	ft_atou(const char *str);
 unsigned long	ft_gettime(void);
+void			ft_msleep(unsigned int time_to_wait);
 
 t_bool			parser(int argc, const char **argv);
 
