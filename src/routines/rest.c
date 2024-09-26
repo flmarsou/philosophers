@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_msleep.c                                        :+:      :+:    :+:   */
+/*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:38:21 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/25 15:48:52 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:13:56 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-void	ft_msleep(unsigned int time_to_wait)
+// Uses multiple short usleep() for a more accurate wait time (in miliseconds).
+void	rest(unsigned int time_to_wait)
 {
 	unsigned long	current_time;
 
