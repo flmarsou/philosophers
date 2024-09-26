@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/25 15:56:41 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:05:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ struct s_stats
 	unsigned int	time_to_eat;	// Time to eat in miliseconds
 	unsigned int	time_to_sleep;	// Time to sleep in miliseconds
 	unsigned int	cycles;			// Number of cycles
-	unsigned int	key;			// Switch to wait for all threads to init
 	unsigned long	timestamp;		// Current time in milisecond
+	t_bool			key;			// Bool to wait for all threads to init
 };
 
 // Philosophers' Info (Individual Allocation)
@@ -48,7 +48,7 @@ typedef struct s_philos
 	unsigned int	id;				// Philosophers' ID
 	pthread_mutex_t	left_fork;		// Philosophers' Fork
 	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
-	unsigned int	ate;
+	t_bool			ate;			// Bool to check if a philosopher ate
 	struct s_stats	*stats;
 }	t_philos;
 
@@ -59,25 +59,24 @@ typedef struct s_sim
 	struct s_philos	*philos;			// Array of Philosophers
 }	t_sim;
 
+//===============================//
+//             Utils             //
+//===============================//
 unsigned int	ft_atou(const char *str);
 unsigned long	ft_gettime(void);
-void			ft_msleep(unsigned int time_to_wait);
 
+//===============================//
+//             Parser            //
+//===============================//
 t_bool			parser(int argc, const char **argv);
 
-void			*routine(void *philo);
+//===============================//
+//            Threads            //
+//===============================//
+void			*routine(void *arg);
+void			routine_eat(t_philos *philo);
+void			routine_sleep(t_philos *philo);
+void			rest(unsigned int time_to_wait);
+void			printer(unsigned long time, unsigned int id, unsigned int act);
 
 #endif
-
-// void	print_header(void)
-// {
-// 	printf("╔══════════╦═══════════╦══════════════════╗\n");
-// 	printf("║ Time     ║ Philo     ║ Event            ║\n");
-// 	printf("╠══════════╬═══════════╬══════════════════╣\n");
-// 	printf("║ _______0 ║           ║ has taken a fork ║\n");
-// 	printf("║ _____200 ║           ║ is eating        ║\n");
-// 	printf("║ _____300 ║           ║ is sleeping      ║\n");
-// 	printf("║ ____1000 ║           ║ is thinking      ║\n");
-// 	printf("║ ____1200 ║           ║ died             ║\n");
-// 	printf("╚══════════╩═══════════╩══════════════════╝\n");
-// }
