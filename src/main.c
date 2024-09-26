@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/25 15:53:56 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:15:45 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_threads(t_sim *sim)
 	unsigned int	i;
 
 	i = 0;
+	printer(0, 0, 0);
 	while (i < sim->stats.nbr_of_philos)
 	{
 		pthread_create(&sim->philos[i].thread, NULL, &routine, &sim->philos[i]);
