@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/26 15:05:00 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:00:12 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ struct s_stats
 	unsigned int	cycles;			// Number of cycles
 	unsigned long	timestamp;		// Current time in milisecond
 	t_bool			key;			// Bool to wait for all threads to init
+	t_bool			is_dead;		// Bool to check if a philosopher died
+	pthread_mutex_t	died;
 };
 
 // Philosophers' Info (Individual Allocation)
 typedef struct s_philos
 {
-	pthread_t		thread;			// Philosophers' Thread
 	unsigned int	id;				// Philosophers' ID
 	pthread_mutex_t	left_fork;		// Philosophers' Fork
 	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
+	pthread_t		thread;			// Philosophers' Thread
 	t_bool			ate;			// Bool to check if a philosopher ate
+	unsigned long	time_left;
 	struct s_stats	*stats;
 }	t_philos;
 
@@ -74,9 +77,9 @@ t_bool			parser(int argc, const char **argv);
 //            Threads            //
 //===============================//
 void			*routine(void *arg);
-void			routine_eat(t_philos *philo);
-void			routine_sleep(t_philos *philo);
-void			rest(unsigned int time_to_wait);
+// void			routine_eat(t_philos *philo);
+// void			routine_sleep(t_philos *philo);
+void			rest(unsigned int time_to_wait, t_philos *philo);
 void			printer(unsigned long time, unsigned int id, unsigned int act);
 
 #endif
