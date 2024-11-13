@@ -6,13 +6,13 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:29:40 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/09/23 10:24:43 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:25:38 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static t_bool	isnumber(const char *str)
+static bool	isnumber(const char *str)
 {
 	unsigned int	i;
 
@@ -26,7 +26,7 @@ static t_bool	isnumber(const char *str)
 	return (true);
 }
 
-static t_bool	check_argv(const char **argv)
+static bool	check_argv(const char **argv)
 {
 	unsigned int	i;
 
@@ -48,7 +48,7 @@ static t_bool	check_argv(const char **argv)
 	return (true);
 }
 
-static t_bool	check_argc(int argc)
+static bool	check_argc(int argc)
 {
 	if (argc != 5 && argc != 6)
 	{
@@ -68,7 +68,7 @@ static t_bool	check_argc(int argc)
 	return (true);
 }
 
-t_bool	parser(int argc, const char **argv)
+bool	parser(int argc, const char **argv)
 {
 	if (!check_argv(argv) || !check_argc(argc))
 	{
