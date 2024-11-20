@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_sleep.c                                    :+:      :+:    :+:   */
+/*   ft_sleep.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 10:30:48 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/13 14:48:36 by flmarsou         ###   ########.fr       */
+/*   Created: 2024/11/18 09:46:37 by flmarsou          #+#    #+#             */
+/*   Updated: 2024/11/20 09:40:09 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-void	routine_sleep(t_philos *philo)
+void	ft_sleep(t_philos *philo)
 {
-	if (philo->is_dead == false)
-	{
+	pthread_mutex_lock(&philo->stats->lock);
+	if (!philo->stats->stop)
 		printer((ft_gettime() - philo->stats->timestamp), philo->id, SLEEP);
-		rest(philo->stats->time_to_sleep);
-	}
+	pthread_mutex_unlock(&philo->stats->lock);
+	rest(philo->stats->time_to_sleep, philo);
 }
