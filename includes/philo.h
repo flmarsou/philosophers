@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/13 14:48:22 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:06:30 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ struct s_stats
 	unsigned int	time_to_die;	// Time to die in miliseconds
 	unsigned int	time_to_eat;	// Time to eat in miliseconds
 	unsigned int	time_to_sleep;	// Time to sleep in miliseconds
+	unsigned int	time_to_think;	// Time to think in miliseconds
 	unsigned int	cycles;			// Number of cycles
 	unsigned long	timestamp;		// Current time in milisecond
+	pthread_mutex_t	lock;			// Global Mutex
+	bool			stop;			// Stops the simulation
 };
 
 // Philosophers' Info (Individual Allocation)
@@ -52,8 +55,6 @@ typedef struct s_philos
 	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
 	pthread_t		thread;			// Philosophers' Thread
 	unsigned long	time_left;		// Time left before dying
-	bool			is_dead;		// Bool to check if a philosopher died
-	pthread_mutex_t	is_dead_mutex;
 	struct s_stats	*stats;
 }	t_philos;
 
@@ -71,6 +72,7 @@ typedef struct s_sim
 
 unsigned int	ft_atou(const char *str);
 unsigned long	ft_gettime(void);
+unsigned int	ft_abs(t_sim *sim);
 
 //===============================//
 //             Parser            //
@@ -85,11 +87,11 @@ bool			parser(int argc, const char **argv);
 void			*routine_monitor(void *arg);
 void			*routine(void *arg);
 
-void			routine_eat(t_philos *philo);
-void			routine_sleep(t_philos *philo);
-void			routine_think(t_philos *philo);
+void			ft_eat(t_philos *philo);
+void			ft_sleep(t_philos *philo);
+void			ft_think(t_philos *philo);
 
-void			rest(unsigned int time_to_wait);
+void			rest(unsigned int time_to_wait, t_philos *philo);
 
 void			printer(unsigned long time, unsigned int id, unsigned int act);
 

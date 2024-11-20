@@ -6,18 +6,21 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/13 14:12:39 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:37:06 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	print_top(void)
+// Destroys the mutexes before leaving the program.
+static void	destroy_mutex(t_sim *sim)
 {
-	printf("╔══════════╦══════════╦══════════════════╗\n");
-	printf("║ \e[1mTime\e[0m     ║ \e[1mPhilo\e[0m    ║");
-	printf(" \e[1mEvent\e[0m            ║\n");
-	printf("╠══════════╬══════════╬══════════════════╣\n");
+	unsigned int	i;
+
+	i = -1;
+	while (++i < sim->stats.nbr_of_philos)
+		pthread_mutex_destroy(&sim->philos->left_fork);
+	pthread_mutex_destroy(&sim->stats.lock);
 }
 
 // Creates a thread for each philosopher to run the routine function.
@@ -27,21 +30,19 @@ static void	init_threads(t_sim *sim)
 	unsigned int	i;
 
 	i = 0;
-	print_top();
-	pthread_create(&sim->monitor, NULL, &routine_monitor, &sim->philos);
 	while (i < sim->stats.nbr_of_philos)
 	{
-		sim->philos[i].id = i + 1;
+		sim->philos[i].time_left = sim->stats.timestamp;
 		pthread_create(&sim->philos[i].thread, NULL, &routine, &sim->philos[i]);
 		i++;
 	}
+	if (sim->stats.nbr_of_philos > 1)
+		pthread_create(&sim->monitor, NULL, &routine_monitor, &sim->philos);
 	i = 0;
 	while (i < sim->stats.nbr_of_philos)
-	{
-		pthread_join(sim->philos[i].thread, NULL);
-		i++;
-	}
-	pthread_join(sim->monitor, NULL);
+		pthread_join(sim->philos[i++].thread, NULL);
+	if (sim->stats.nbr_of_philos > 1)
+		pthread_join(sim->monitor, NULL);
 }
 
 // Allocates the different iterations of philosophers.
@@ -54,9 +55,9 @@ static void	init_mutexes(t_sim *sim)
 	i = 0;
 	while (i < sim->stats.nbr_of_philos)
 	{
+		sim->philos[i].id = i + 1;
 		sim->philos[i].stats = &sim->stats;
 		pthread_mutex_init(&sim->philos[i].left_fork, NULL);
-		pthread_mutex_init(&sim->philos[i].is_dead_mutex, NULL);
 		if (i == sim->stats.nbr_of_philos - 1)
 			sim->philos[i].right_fork = &sim->philos[0].left_fork;
 		else
@@ -81,7 +82,14 @@ static void	init_stats(t_sim *sim, const char **argv)
 		sim->stats.cycles = ft_atou(argv[5]);
 	else
 		sim->stats.cycles = 0;
+	if (sim->stats.time_to_die < 60 || sim->stats.time_to_eat < 60
+		|| sim->stats.time_to_sleep < 60)
+	{
+		printf("\e[1;31m[x] - Error: \e[1;97mValues too small!\n\e[0m");
+		exit (1);
+	}
 	sim->stats.timestamp = ft_gettime();
+	pthread_mutex_init(&sim->stats.lock, NULL);
 }
 
 int	main(int argc, const char **argv)
@@ -92,6 +100,11 @@ int	main(int argc, const char **argv)
 		return (1);
 	init_stats(&sim, argv);
 	init_mutexes(&sim);
+	printf("╔══════════╦══════════╦══════════════════╗\n");
+	printf("║ \e[1mTime\e[0m     ║ \e[1mPhilo\e[0m    ║");
+	printf(" \e[1mEvent\e[0m            ║\n");
+	printf("╠══════════╬══════════╬══════════════════╣\n");
 	init_threads(&sim);
+	destroy_mutex(&sim);
 	return (0);
 }
