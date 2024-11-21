@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 09:46:06 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/20 13:10:22 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:37:00 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_eat(t_philos *philo)
 		printer((ft_gettime() - philo->stats->timestamp), philo->id, FORK);
 		printer((ft_gettime() - philo->stats->timestamp), philo->id, EAT);
 	}
-	pthread_mutex_unlock(&philo->stats->lock);
 	philo->time_left = ft_gettime();
+	pthread_mutex_unlock(&philo->stats->lock);
 	rest(philo->stats->time_to_eat, philo);
 	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
