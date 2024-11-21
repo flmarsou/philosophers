@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/20 13:22:40 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:04:58 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,18 @@
 // Fancy Printer
 void	printer(unsigned long time, unsigned int id, unsigned int act)
 {
-	const char	fork[25] = "\e[1mhas taken a fork\e[0m";
-	const char	eat[25] = "\e[1mis eating\e[0m       ";
-	const char	sleep[25] = "\e[1mis sleeping     \e[0m";
-	const char	think[25] = "\e[1mis thinking     \e[0m";
-	const char	death[27] = "\e[31;1mdied            \e[0m";
-
 	if (act == FORK)
-		printf("║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n", time, id, fork);
+		printf(DISPLAY_PRINT, time, id, FORK_PRINT);
 	else if (act == EAT)
-		printf("║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n", time, id, eat);
+		printf(DISPLAY_PRINT, time, id, EAT_PRINT);
 	else if (act == SLEEP)
-		printf("║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n", time, id, sleep);
+		printf(DISPLAY_PRINT, time, id, SLEEP_PRINT);
 	else if (act == THINK)
-		printf("║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n", time, id, think);
+		printf(DISPLAY_PRINT, time, id, THINK_PRINT);
 	else
 	{
-		printf("║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n", time, id, death);
-		printf("╚══════════╩══════════╩══════════════════╝\n");
+		printf(DISPLAY_PRINT, time, id, DEAD_PRINT);
+		printf(END_PRINT);
 	}
 }
 
@@ -43,7 +37,7 @@ void	printer(unsigned long time, unsigned int id, unsigned int act)
 // 	const char	eat[25] = "\e[1mis eating\e[0m";
 // 	const char	sleep[25] = "\e[1mis sleeping\e[0m";
 // 	const char	think[25] = "\e[1mis thinking\e[0m";
-// 	const char	death[25] = "\e[31;1mdied\e[0m";
+// 	const char	death[25] = "\e[1mdied\e[0m";
 
 // 	if (act == FORK)
 // 		printf("%lu %u %s\n", time, id, fork);

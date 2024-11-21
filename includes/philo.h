@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/20 13:06:30 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:57:37 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 						// pthread_mutex_init, pthread_mutex_destroy
 						// pthread_mutex_lock, pthread_mutex_unlock
 # include <stdbool.h>	// Booleans
+
+# define DISPLAY_PRINT	"║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n"
+# define FORK_PRINT		"\e[34;1mhas taken a fork\e[0m"
+# define EAT_PRINT		"\e[32;1mis eating\e[0m       "
+# define SLEEP_PRINT	"\e[35;1mis sleeping     \e[0m"
+# define THINK_PRINT	"\e[1mis thinking...  \e[0m"
+# define DEAD_PRINT		"\e[31;1mdied            \e[0m"
+# define END_PRINT		"╚══════════╩══════════╩══════════════════╝\n"
 
 // Action Enums
 typedef enum e_actions
