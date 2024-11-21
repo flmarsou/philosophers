@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/20 13:37:06 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:33:20 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	init_stats(t_sim *sim, const char **argv)
 		exit (1);
 	}
 	sim->stats.timestamp = ft_gettime();
+	sim->stats.stop = false;
 	pthread_mutex_init(&sim->stats.lock, NULL);
 }
 
