@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:47:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/21 12:04:58 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:16:59 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,14 @@ void	printer(unsigned long time, unsigned int id, unsigned int act)
 // Normal Printer
 // void	printer(unsigned long time, unsigned int id, unsigned int act)
 // {
-// 	const char	fork[25] = "\e[1mhas taken a fork\e[0m";
-// 	const char	eat[25] = "\e[1mis eating\e[0m";
-// 	const char	sleep[25] = "\e[1mis sleeping\e[0m";
-// 	const char	think[25] = "\e[1mis thinking\e[0m";
-// 	const char	death[25] = "\e[1mdied\e[0m";
-
 // 	if (act == FORK)
-// 		printf("%lu %u %s\n", time, id, fork);
+// 		printf("%lu %u has taken a fork\n", time, id);
 // 	else if (act == EAT)
-// 		printf("%lu %u %s\n", time, id, eat);
+// 		printf("%lu %u is eating\n", time, id);
 // 	else if (act == SLEEP)
-// 		printf("%lu %u %s\n", time, id, sleep);
+// 		printf("%lu %u is sleeping\n", time, id);
 // 	else if (act == THINK)
-// 		printf("%lu %u %s\n", time, id, think);
+// 		printf("%lu %u is thinking\n", time, id);
 // 	else
-// 		printf("%lu %u %s\n", time, id, death);
+// 		printf("%lu %u died\n", time, id);
 // }
