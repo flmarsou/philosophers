@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 10:43:31 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/22 11:22:10 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:25:26 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static bool	count_meals(t_philos *philos)
 	{
 		philos->stats->stop = true;
 		pthread_mutex_unlock(&philos->stats->lock);
+		printf(END_PRINT);
 		return (true);
 	}
 	return (false);
