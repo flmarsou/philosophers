@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:31:14 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/20 14:33:20 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:32:15 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ static void	destroy_mutex(t_sim *sim)
 {
 	unsigned int	i;
 
-	i = -1;
-	while (++i < sim->stats.nbr_of_philos)
-		pthread_mutex_destroy(&sim->philos->left_fork);
+	i = 0;
+	while (i < sim->stats.nbr_of_philos)
+	{
+		pthread_mutex_destroy(&sim->philos[i].left_fork);
+		i++;
+	}
 	pthread_mutex_destroy(&sim->stats.lock);
 }
 
@@ -32,7 +35,10 @@ static void	init_threads(t_sim *sim)
 	i = 0;
 	while (i < sim->stats.nbr_of_philos)
 	{
+		sim->philos[i].stats = &sim->stats;
+		sim->philos[i].id = i + 1;
 		sim->philos[i].time_left = sim->stats.timestamp;
+		sim->philos[i].meals = 0;
 		pthread_create(&sim->philos[i].thread, NULL, &routine, &sim->philos[i]);
 		i++;
 	}
@@ -55,8 +61,6 @@ static void	init_mutexes(t_sim *sim)
 	i = 0;
 	while (i < sim->stats.nbr_of_philos)
 	{
-		sim->philos[i].id = i + 1;
-		sim->philos[i].stats = &sim->stats;
 		pthread_mutex_init(&sim->philos[i].left_fork, NULL);
 		if (i == sim->stats.nbr_of_philos - 1)
 			sim->philos[i].right_fork = &sim->philos[0].left_fork;
@@ -81,7 +85,7 @@ static void	init_stats(t_sim *sim, const char **argv)
 	if (argv[5])
 		sim->stats.cycles = ft_atou(argv[5]);
 	else
-		sim->stats.cycles = 0;
+		sim->stats.cycles = -1;
 	if (sim->stats.time_to_die < 60 || sim->stats.time_to_eat < 60
 		|| sim->stats.time_to_sleep < 60)
 	{
@@ -89,8 +93,8 @@ static void	init_stats(t_sim *sim, const char **argv)
 		exit (1);
 	}
 	sim->stats.timestamp = ft_gettime();
-	sim->stats.stop = false;
 	pthread_mutex_init(&sim->stats.lock, NULL);
+	sim->stats.stop = false;
 }
 
 int	main(int argc, const char **argv)

@@ -6,7 +6,7 @@
 /*   By: flmarsou <flmarsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:32:28 by flmarsou          #+#    #+#             */
-/*   Updated: 2024/11/21 13:57:37 by flmarsou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:22:21 by flmarsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 						// pthread_mutex_lock, pthread_mutex_unlock
 # include <stdbool.h>	// Booleans
 
+// Defines
 # define DISPLAY_PRINT	"║ \e[1m%8lu\e[0m ║ \e[1m%8u\e[0m ║ %s ║\n"
 # define FORK_PRINT		"\e[34;1mhas taken a fork\e[0m"
 # define EAT_PRINT		"\e[32;1mis eating\e[0m       "
@@ -48,7 +49,6 @@ struct s_stats
 	unsigned int	time_to_die;	// Time to die in miliseconds
 	unsigned int	time_to_eat;	// Time to eat in miliseconds
 	unsigned int	time_to_sleep;	// Time to sleep in miliseconds
-	unsigned int	time_to_think;	// Time to think in miliseconds
 	unsigned int	cycles;			// Number of cycles
 	unsigned long	timestamp;		// Current time in milisecond
 	pthread_mutex_t	lock;			// Global Mutex
@@ -58,12 +58,13 @@ struct s_stats
 // Philosophers' Info (Individual Allocation)
 typedef struct s_philos
 {
+	struct s_stats	*stats;
 	unsigned int	id;				// Philosophers' ID
 	pthread_mutex_t	left_fork;		// Philosophers' Fork
 	pthread_mutex_t	*right_fork;	// Philosophers' Neighbor Fork
 	pthread_t		thread;			// Philosophers' Thread
 	unsigned long	time_left;		// Time left before dying
-	struct s_stats	*stats;
+	unsigned long	meals;			// Amounts of meals eaten
 }	t_philos;
 
 // Main Struct
@@ -80,7 +81,6 @@ typedef struct s_sim
 
 unsigned int	ft_atou(const char *str);
 unsigned long	ft_gettime(void);
-unsigned int	ft_abs(t_sim *sim);
 
 //===============================//
 //             Parser            //
@@ -97,7 +97,6 @@ void			*routine(void *arg);
 
 void			ft_eat(t_philos *philo);
 void			ft_sleep(t_philos *philo);
-void			ft_think(t_philos *philo);
 
 void			rest(unsigned int time_to_wait, t_philos *philo);
 
